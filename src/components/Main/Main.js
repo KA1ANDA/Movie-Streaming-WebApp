@@ -1,6 +1,6 @@
 import React from 'react';
 import Navigation from './Navigation';
-import { useGetMovieGenresQuery, useGetPopularMoviesQuery } from './../../Redux/api';
+import { useAddToWatchlistMutation, useGetMovieGenresQuery, useGetPopularMoviesQuery } from './../../Redux/api';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -13,22 +13,33 @@ import './styles.css';
 
 // import required modules
 import { Pagination } from 'swiper/modules';
+import { useSelector } from 'react-redux';
 
 
 
 function Main() {
-  console.log('ki')
-
+  
+  const {profileId} = useSelector (state => state.profileSlice)
   const genres = useGetMovieGenresQuery()
+
   const {data} = useGetPopularMoviesQuery()
  
-  const movies = data?.results?.slice(0, 5);
-  
+  const [idValues] = useAddToWatchlistMutation()
 
   
+  const movies = data?.results?.slice(0, 5);
+
+  const addToWatchList = (movieId) => {
+    const params = {
+      movieId,
+      profileId
+    }
+    
+    idValues(params)
+  }
 
   return (
-    <div className=" -mx-[75px] -my-[40px] h-[848px]  relative  " >
+    <div className=" -mx-[75px] -mt-[40px] h-[848px]  relative  " >
       <Navigation />
       <Swiper pagination={true}  modules={[Pagination]}  className="mySwiper"    >
         
@@ -46,11 +57,11 @@ function Main() {
               </div>
          
               <div>{movie.overview}</div>
-            
-
-      
               
-              <div></div>
+              <div className='flex justify-center gap-5'>
+                <button>Watch Trailer</button>
+                <button onClick={() => addToWatchList(movie.id)}>Add Watchlist</button>
+              </div>
             </div>
           </div>
         </SwiperSlide>)}

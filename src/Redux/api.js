@@ -5,7 +5,7 @@ const API_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhYTg4YzBkZGZiMTg0OWE5MWM4NjNkMm
 
 export const api = createApi({
   reducerPath: "api",
-  tagTypes: ["popular" , "movieGenres" , "accountInfo", "watchlist" , "companyInfo" , "nowPlaying"],
+  tagTypes: ["popular" , "movieGenres" , "accountInfo", "watchlist" , "companyInfo" , "nowPlaying" , "trendingMovies" , "movies" , "topRatedMovies"],
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
@@ -28,20 +28,37 @@ export const api = createApi({
       
     }),
 
+    getTrendingMovies: builder.query({
+      query: (time_window) => `trending/movie/${time_window}`,
+      providesTags: () => ["trendingMovies"],
+      
+    }),
+
+    getTopRatedMovies: builder.query({
+      query: () => `movie/top_rated?language=en-US`,
+      providesTags: () => ["topRatedMovies"],
+      
+    }),
+
     getMovieGenres: builder.query({
       query: () => "genre/movie/list?language=en",
       providesTags: () => ["movieGenres"],
     }),
+
+
+    
+
+
+
+
+
 
     getMyAccountInfo: builder.query({
       query: () => "account/me",
       providesTags: () => ["accountInfo"],
     }),
 
-    getCompaniesInfo: builder.query({
-      query: () => "search/company",
-      providesTags: () => ["companyInfo"],
-    }),
+  
 
     addToWatchlist: builder.mutation({
       query(params) {
@@ -65,6 +82,7 @@ export const {
   useGetPopularMoviesQuery,
   useGetMovieGenresQuery , 
   useGetMyAccountInfoQuery ,
-  useAddToWatchlistMutation ,
-  useGetCompaniesInfoQuery, 
-  useGetLatestMoviesQuery} = api;
+  useAddToWatchlistMutation , 
+  useGetLatestMoviesQuery,
+  useGetTrendingMoviesQuery,
+  useGetTopRatedMoviesQuery} = api;

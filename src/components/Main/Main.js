@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import Navigation from './Navigation';
 import { useAddToWatchlistMutation, useGetMovieGenresQuery, useGetPopularMoviesQuery } from './../../Redux/api';
 
@@ -17,18 +17,18 @@ import { useSelector } from 'react-redux';
 
 
 
-function Main() {
+
+const Main = memo(() => {
   
   const {profileId} = useSelector (state => state.profileSlice)
-  const genres = useGetMovieGenresQuery()
+  const [movies , setMovies] = useState([])
 
+  const genres = useGetMovieGenresQuery()
   const {data} = useGetPopularMoviesQuery()
- 
   const [idValues] = useAddToWatchlistMutation()
 
-  
-  const movies = data?.results?.slice(0, 5);
 
+ 
   const addToWatchList = (movieId) => {
     const params = {
       movieId,
@@ -37,6 +37,15 @@ function Main() {
     
     idValues(params)
   }
+  
+  
+  useEffect (() => {
+    if(data){
+      setMovies(data.results.slice(0, 5))
+    }
+  },[data])
+
+
 
   return (
     <div className=" -mx-[75px] -mt-[40px] h-[848px]  relative  " >
@@ -70,6 +79,6 @@ function Main() {
   );
 
 
-}
+})
 
 export default Main;

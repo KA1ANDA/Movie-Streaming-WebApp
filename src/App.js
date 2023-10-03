@@ -4,6 +4,8 @@ import Main from './components/Main/Main';
 import { useDispatch } from 'react-redux';
 import { setProfileId } from './Redux/Slices/profileSlice';
 import NewMoviesSlider from './components/JustRealeseMovies/NewMoviesSlider';
+import TrendingMoviesSlider from './components/TrendingMovies/TrendingMoviesSlider';
+import TopRaitedMovies from './components/TopRaited/TopRaitedMovies';
 
 
 function App() {
@@ -13,9 +15,8 @@ function App() {
  
 
   const {data , isLoading} = useGetMyAccountInfoQuery()
-  const companyInfo = useGetCompaniesInfoQuery()
 
-  console.log(companyInfo)
+
 
   useEffect(() => { 
     if (data) {
@@ -24,9 +25,11 @@ function App() {
   }, [data , dispatch  ]);
 
   return (
-    <div className="  bg-slate-500 px-[75px] pt-[40px] ">
+    <div className="  bg-slate-500 px-[75px] pt-[40px] flex flex-col gap-[70px]">
       <Main/>
       <NewMoviesSlider /> 
+      <TrendingMoviesSlider />
+      <TopRaitedMovies />
     </div>
   );
 }

@@ -1,8 +1,9 @@
-.newMoviesSwiper {
-  width: 100%;
+.topRatedMoviesSwiper {
+  width: 30%;
   height: 350px;
   position: relative;
-
+  
+  
   
 }
 
@@ -10,7 +11,7 @@
   z-index: 60;
 }
 
-.newMovieSlide {
+.topRatedMoviesSlide {
   text-align: center;
   font-size: 18px;
   background: #fff;
@@ -27,7 +28,7 @@
 
 
 
-.newMovieSlide img {
+.topRatedMoviesSlide img {
   display: block;
   width: 100%;
   height: 100%;

@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import Navigation from './Navigation';
-import { useAddToWatchlistMutation, useGetMovieGenresQuery, useGetPopularMoviesQuery } from './../../Redux/api';
+import Navigation from './NavList';
+import { useAddToWatchlistMutation, useGetMovieGenresQuery, useGetPopularMoviesQuery } from './../../Redux/API/api';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -14,6 +14,7 @@ import './styles.css';
 // import required modules
 import { Pagination } from 'swiper/modules';
 import { useSelector } from 'react-redux';
+import WatchButton from '../Buttons/WatchButton';
 
 
 
@@ -49,8 +50,7 @@ const Main = memo(() => {
 
   return (
     <div className=" -mx-[75px] -mt-[40px] h-[848px]  relative  " >
-      <Navigation />
-      <Swiper pagination={true}  modules={[Pagination]}  className="mySwiper"    >
+      <Swiper loop={true} pagination={true}  modules={[Pagination]}  className="mySwiper"    >
         
         {data && movies.map( movie => 
         <SwiperSlide className='' >
@@ -68,7 +68,7 @@ const Main = memo(() => {
               <div>{movie.overview}</div>
               
               <div className='flex justify-center gap-5'>
-                <button>Watch Trailer</button>
+                <WatchButton  id={movie.id} />
                 <button onClick={() => addToWatchList(movie.id)}>Add Watchlist</button>
               </div>
             </div>

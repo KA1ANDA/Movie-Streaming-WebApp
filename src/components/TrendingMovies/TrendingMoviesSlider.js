@@ -6,7 +6,7 @@ import 'swiper/css/navigation';
 import './trendingMoviesSwiper.css';
 
 import { Autoplay, Navigation } from 'swiper/modules';
-import { useGetMoviesQuery, useGetTrendingMoviesQuery } from '../../Redux/api';
+import { useGetMovieGenresQuery, useGetMoviesQuery, useGetTrendingMoviesQuery } from '../../Redux/API/api';
 import TrendingMoviesSlide from '../Slides/TrendingMoviesSlide';
 
 
@@ -16,6 +16,7 @@ const TrendingMoviesSlider = memo(() => {
   const [time , setTime] = useState('day')
 
   const {data} = useGetTrendingMoviesQuery(time)
+ 
 
 
   const trendingDay = useRef('')
@@ -37,7 +38,8 @@ const TrendingMoviesSlider = memo(() => {
      <Swiper navigation={true} modules={[Navigation]} slidesPerView={'auto'} spaceBetween={20}  className="trendingMoviesSwiper">
       {data && data.results.map(movie => 
       <SwiperSlide className='trendingMoviesSlide' >
-        <TrendingMoviesSlide  posterPath={movie.poster_path} title={movie.title} voteAverage={movie.vote_average}  movie={movie} mediaType={movie.media_type}/>
+        <div>1</div>
+        <TrendingMoviesSlide posterPath={movie.poster_path} title={movie.title} voteAverage={movie.vote_average}  movie={movie} mediaType={movie.media_type}/>
       </SwiperSlide>  
       )}
       <div className='riightGradient '> </div> 

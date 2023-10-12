@@ -1,38 +1,35 @@
-.topRatedMoviesSwiper {
-  width: 50%;
-  height: 450px;
+.actorsSwiper {
+  width: 100%;
+  height: 100%;
   position: relative;
-
-  
-  
-  
 }
+
 
 .swiper-button-next{
   z-index: 60;
 }
 
-.topRatedMoviesSlide {
+.actorsSlide {
   text-align: center;
   font-size: 18px;
   background: #fff;
 
   /* Center slide text vertically */
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: lightcoral;
-  width: fit-content !important;
-
-  
+  width: 200px ;
+  border: 5px solid transparent;  
 }
 
 
 
-.topRatedMoviesSlide img {
-  display: block;
+
+.actorsSlide img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-
+  object-fit: cover;
 }
+

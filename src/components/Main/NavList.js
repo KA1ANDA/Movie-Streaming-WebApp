@@ -1,8 +1,9 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 
 
-function Navigation() {
+function NavList() {
 
   return (
     <div className="flex w-full justify-between absolute top-[40px] px-[75px] text-white z-20">
@@ -28,7 +29,7 @@ function Navigation() {
         </svg>
      </div>
      <ul className='flex gap-[32px]'>
-      <li>Home</li>
+      <NavLink to={'/Home'}><li>Home</li></NavLink>
       <li>Discover</li>
       <li>Movie Release</li>
       <li>Forum</li>
@@ -47,4 +48,4 @@ function Navigation() {
   );
 }
 
-export default Navigation;
+export default NavList;

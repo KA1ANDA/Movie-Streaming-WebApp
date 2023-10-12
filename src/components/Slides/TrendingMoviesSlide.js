@@ -1,8 +1,9 @@
 import React, { memo } from 'react';
+import VoteAndGenres from '../common/VoteAndGenres';
 
 
 
-const TrendingMoviesSlide = memo(({posterPath , title , voteAverage , genres , movie , mediaType}) => {
+const TrendingMoviesSlide = memo(({posterPath , title  , movie , mediaType}) => {
 
 
   return (
@@ -14,11 +15,9 @@ const TrendingMoviesSlide = memo(({posterPath , title , voteAverage , genres , m
       <img src={`https://image.tmdb.org/t/p/original/${posterPath}`}></img>
         <div className='flex flex-col bg-blue-500'>
           <div>{title}</div>
-          <div>genre</div>
-          <div>
-            <div>{voteAverage}</div>
-            <span>{mediaType}</span>
-          </div>
+          <VoteAndGenres  movie={movie} />
+          <span>{mediaType}</span>
+          
         </div>
     </div>
     </>

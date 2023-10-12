@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { useGetLatestMoviesQuery, useGetMovieGenresQuery } from '../../Redux/api';
+import { useGetLatestMoviesQuery, useGetMovieGenresQuery } from '../../Redux/API/api';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -14,7 +14,7 @@ const NewMoviesSlider = memo(() => {
   return (
     <div className="-mr-[75px] ">
       <div>Just Release</div>
-    <Swiper navigation={true} modules={[Navigation]} slidesPerView={'auto'} spaceBetween={20}  className="newMoviesSwiper">
+    <Swiper  navigation={true} modules={[Navigation]} slidesPerView={'auto'} spaceBetween={20}  className="newMoviesSwiper">
       {data && data.results.map(movie =>
          <SwiperSlide className='newMovieSlide' >
 

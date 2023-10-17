@@ -30,7 +30,7 @@ function NavList() {
      </div>
      <ul className='flex gap-[32px]'>
       <NavLink to={'/Home'}><li>Home</li></NavLink>
-      <li>Discover</li>
+      <NavLink to={'/Discover'}><li>Discover</li></NavLink>
       <li>Movie Release</li>
       <li>Forum</li>
       <li>About</li>

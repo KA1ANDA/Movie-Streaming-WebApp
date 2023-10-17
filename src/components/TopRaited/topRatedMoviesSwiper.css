@@ -22,7 +22,7 @@
   justify-content: center;
   align-items: center;
   background-color: lightcoral;
-  width: fit-content !important;
+  width: 300px !important;
 
   
 }
@@ -36,3 +36,5 @@
   object-fit: contain;
 
 }
+
+

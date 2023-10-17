@@ -5,7 +5,7 @@ const API_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhYTg4YzBkZGZiMTg0OWE5MWM4NjNkMm
 
 export const api = createApi({
   reducerPath: "api",
-  tagTypes: ["popular" , "movieGenres" , "accountInfo", "watchlist"  , "nowPlaying" , "trendingMovies" , "movies" , "topRatedMovies" , "tvSeriesPopular" , "TvSeriesGenres" , "findByGenres" , "movie" , "actors" , "similarMovies" , "movieRecomendation" ,"movieReviews"],
+  tagTypes: ["popular" , "movieGenres" , "accountInfo", "watchlist"  , "nowPlaying" , "trendingMovies" , "movies" , "topRatedMovies" , "tvSeriesPopular" , "TvSeriesGenres" , "findByGenres" , "movie" , "actors" , "similarMovies" , "movieRecomendation" ,"movieReviews" , "moviePosters" , "movieBackdrops" , "movieFiltered"],
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
@@ -51,6 +51,19 @@ export const api = createApi({
     }),
 
 
+    getMovieFiltered: builder.query({
+      query({sortOption , filterParams}) {
+        const {genreId , fromDate , toDate , userScore , userVotes , movieTime} = filterParams
+       
+        return{
+          // url:`discover/movie?with_genres=${genreId}&sort_by=${'popularity.desc'}&with_runtime.gte=${62}&with_runtime.lte=${30}&primary_release_date.gte=${'2023-07-08'}&primary_release_date.lte=${'2023-05-08'}`,
+          url:`discover/movie?include_adult=false&sort_by=${sortOption}&with_genres=${genreId}&release_date.gte=${fromDate}&release_date.lte=${toDate}&vote_average.gte=0&vote_average.lte=${userScore}&vote_count.lte=${userVotes}&with_runtime.gte=0&with_runtime.lte=${movieTime}&language=en-US`,
+        }
+      },
+      providesTags: () => ["movieFiltered"],
+    }),
+
+
     
 
 
@@ -92,4 +105,4 @@ export const {
   useGetTrendingMoviesQuery,
   useGetTopRatedMoviesQuery,
   useGetFindByGenresQuery,
-  } = api;
+  useGetMovieFilteredQuery} = api;

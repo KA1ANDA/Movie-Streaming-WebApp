@@ -11,6 +11,7 @@ const NewMoviesSlider = memo(() => {
   const genres = useGetMovieGenresQuery()
   const {data} = useGetLatestMoviesQuery()
 
+  
   return (
     <div className="-mr-[75px] ">
       <div>Just Release</div>

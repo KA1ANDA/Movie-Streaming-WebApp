@@ -1,14 +1,22 @@
 import React, { memo } from 'react';
 import VoteAndGenres from '../common/VoteAndGenres';
+import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setMovieId } from '../../Redux/Slices/movieSlice';
 
 
 
 const TrendingMoviesSlide = memo(({posterPath , title  , movie , mediaType}) => {
 
+  const dispatch = useDispatch()
+
+  const setId = () => {
+    dispatch(setMovieId(movie.id))
+  }
 
   return (
-    <>
-    <div>
+    <NavLink to='/Movie' onClick={setId} className='flex'>
+    <div className='flex items-center'>
       1
     </div>
     <div className='bg-green-300 flex items-end justify-center  '>
@@ -20,7 +28,7 @@ const TrendingMoviesSlide = memo(({posterPath , title  , movie , mediaType}) => 
           
         </div>
     </div>
-    </>
+    </NavLink>
   );
 })
 

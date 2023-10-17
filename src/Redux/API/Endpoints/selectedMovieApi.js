@@ -33,6 +33,14 @@ const selectedMovieApi = api.injectEndpoints({
       
     }),
 
+  
+
+    getMovieMedia : builder.query({
+      query: (movie_id) => `movie/${movie_id}/images?include_image_language=en&language=en`,
+      providesTags: () => ["movieMedia"],
+      
+    }),
+   
     
    
   })
@@ -44,4 +52,5 @@ export const {
   useGetActorsQuery,
   useGetSimilarMoviesQuery,
   useGetMovieRecomendationQuery,
-  useGetMovieReviewsQuery} = selectedMovieApi
+  useGetMovieReviewsQuery,
+  useGetMovieMediaQuery} = selectedMovieApi

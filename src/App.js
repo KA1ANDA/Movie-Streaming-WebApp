@@ -10,6 +10,7 @@ import HomePage from './components/Pages/HomePage';
 import MoviePage from './components/Pages/MoviePage';
 import { Navigation } from 'swiper/modules';
 import NavList from './components/Main/NavList';
+import DiscoverPage from './components/Pages/DiscoverPage';
 
 
 
@@ -39,6 +40,7 @@ function App() {
         <Route path="/" element={<Navigate to="/Home" />} />
         <Route path="/Home" element={<HomePage />}></Route>
         <Route path="/Movie" element={<MoviePage />}></Route>
+        <Route path="/Discover" element={<DiscoverPage />}></Route>
       </Routes>
       <Footer />
     </div>

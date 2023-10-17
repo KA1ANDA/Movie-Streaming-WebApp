@@ -8,5 +8,5 @@
 }
 
 .bottomGradient{
-  @apply absolute w-full h-full bg-gradient-to-t from-black  from-5% to-25%
+  @apply absolute bottom-0 w-full bg-gradient-to-t from-black  from-5% to-25% 
 }

@@ -5,6 +5,7 @@ const movieSlice = createSlice({
   initialState:{
     genreId:null,
     movieId:null,
+    
   },
   reducers:{
     setGenreId: (state , action) => {
@@ -13,8 +14,9 @@ const movieSlice = createSlice({
     setMovieId: (state , action) => {
       state.movieId = action.payload
     } ,
+    
   }
 })
 
-export const {setGenreId , setMovieId} = movieSlice.actions
+export const {setGenreId , setMovieId } = movieSlice.actions
 export default movieSlice.reducer

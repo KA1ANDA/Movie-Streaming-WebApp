@@ -7,12 +7,16 @@ import 'swiper/css/pagination';
 import { Pagination, Navigation } from 'swiper/modules';
 import { useGetFindByGenresQuery, useGetMovieGenresQuery } from '../../Redux/API/api';
 import GenresSwiper from './GenresSwiper';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import VoteAndGenres from '../common/VoteAndGenres';
+import { setMovieId } from '../../Redux/Slices/movieSlice';
+import { NavLink } from 'react-router-dom';
 
 
 
 const Genres = memo(() => {
+  
+  const dispatch = useDispatch()
 
   const {genreId} = useSelector(state=> state.movieSlice)
 
@@ -53,6 +57,10 @@ const Genres = memo(() => {
 
 
 
+  const setId = (id) => {
+    dispatch(setMovieId(id))
+  }
+
 
   return (
     <div className=" h-[848px] bg-blue-400 flex relative">
@@ -60,17 +68,21 @@ const Genres = memo(() => {
       <Swiper pagination={true}  navigation={true} modules={[Navigation , Pagination]} slidesPerView={'auto'} spaceBetween={20} >
       {data && findByGanres?.data?.results.map(movieFound =>
          <SwiperSlide  key={movieFound.id} >
-            <img src={`https://image.tmdb.org/t/p/original/${movieFound.backdrop_path}`}/> 
-            <div className='absolute bg-green-400'>
-              <div>Explore by the genre</div>
-              <div>{movieFound.title}</div>
-              <VoteAndGenres  movie={movieFound} />
+            <NavLink to='/Movie' onClick={() => setId (movieFound.id)} className='h-full w-full'>
               <div>
-                <button>play now</button>
-                <button>add watch list</button>
+                <img src={`https://image.tmdb.org/t/p/original/${movieFound.backdrop_path}`}/> 
               </div>
-
-            </div>
+             
+              <div className='absolute bottom-[500px] bg-green-400'>
+                <div>Explore by the genre</div>
+                <div>{movieFound.title}</div>
+                <VoteAndGenres  movie={movieFound} />
+                <div>
+                  <button>play now</button>
+                  <button>add watch list</button>
+                </div>
+              </div>
+            </NavLink>
          </SwiperSlide>)}  
          <div className='riightGradient '> </div> 
       </Swiper>

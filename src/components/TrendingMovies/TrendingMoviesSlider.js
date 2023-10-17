@@ -38,7 +38,6 @@ const TrendingMoviesSlider = memo(() => {
      <Swiper navigation={true} modules={[Navigation]} slidesPerView={'auto'} spaceBetween={20}  className="trendingMoviesSwiper">
       {data && data.results.map(movie => 
       <SwiperSlide className='trendingMoviesSlide' >
-        <div>1</div>
         <TrendingMoviesSlide posterPath={movie.poster_path} title={movie.title} voteAverage={movie.vote_average}  movie={movie} mediaType={movie.media_type}/>
       </SwiperSlide>  
       )}

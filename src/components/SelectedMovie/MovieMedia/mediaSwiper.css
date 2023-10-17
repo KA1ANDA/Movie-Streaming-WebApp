@@ -1,35 +1,37 @@
-.newMoviesSwiper {
+.mediaSwiper {
   width: 100%;
-  
-  position: relative;
-
-  
+  height: 100%;
+  background-color: aqua;
+ 
 }
 
 .swiper-button-next{
   z-index: 60;
 }
 
-.newMovieSlide {
+.mediaSlide {
   text-align: center;
   font-size: 18px;
   background: #fff;
 
   /* Center slide text vertically */
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: lightcoral;
-  width: 300px !important;
+  /* width: fit-content !important; */
+
+  width: 500px;
 
   
 }
 
 
 
-.newMovieSlide img {
+.mediaSlide img {
   display: block;
-  width: 100%;
+  /* width: 130px; */
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }

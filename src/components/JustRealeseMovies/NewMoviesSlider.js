@@ -17,7 +17,7 @@ const NewMoviesSlider = memo(() => {
       <div>Just Release</div>
     <Swiper  navigation={true} modules={[Navigation]} slidesPerView={'auto'} spaceBetween={20}  className="newMoviesSwiper">
       {data && data.results.map(movie =>
-         <SwiperSlide className='newMovieSlide' >
+         <SwiperSlide className='newMovieSlide skeleton' >
 
           <MainSlide genres={genres} movie={movie}/>
 

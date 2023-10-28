@@ -6,7 +6,7 @@ import './commonSwiper.css';
 import {Navigation } from 'swiper/modules';
 import VoteAndGenres from '../common/VoteAndGenres';
 import { useDispatch } from 'react-redux';
-import { setMovieId } from '../../Redux/Slices/movieSlice';
+import { setMovieId , setTvId } from '../../Redux/Slices/movieSlice';
 import { NavLink } from 'react-router-dom';
 
 
@@ -20,14 +20,19 @@ const CommonSlide = memo(({data}) => {
     dispatch(setMovieId(id))
   }
 
+  const setTvSeriesId = (id) => {
+    dispatch(setTvId(id))
+  }
+
+
   
   return (
      <Swiper navigation={true} modules={[Navigation]} slidesPerView={'auto'} spaceBetween={20}  className="comonSwiper">
       {data && data.results.map(movie => 
       
         <SwiperSlide className='comonSlide' >
-          <NavLink to='/Movie' onClick={() => setId (movie.id)} >
-            <img  src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}/>
+          <NavLink to={`${movie.first_air_date ? '/tv' : '/Movie'}`} onClick={() => movie.first_air_date ? setTvSeriesId(movie.id) : setId (movie.id) } >
+            <img loading='lazy' className='skeleton' src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
             <div>
               <div>{movie.title}</div>
               <VoteAndGenres  movie={movie} />

@@ -28,7 +28,6 @@ const Main = memo(() => {
   const {data} = useGetPopularMoviesQuery()
   const [idValues] = useAddToWatchlistMutation()
 
-
  
   const addToWatchList = (movieId) => {
     const params = {
@@ -47,21 +46,20 @@ const Main = memo(() => {
   },[data])
 
 
-
   return (
     <div className=" -mx-[75px] -mt-[40px] h-[848px]  relative  " >
       <Swiper loop={true} pagination={true}  modules={[Pagination]}  className="mySwiper"    >
         
         {data && movies.map( movie => 
-        <SwiperSlide className='' >
-          <img className=" " src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/> 
+        <SwiperSlide className='skeleton' >
+          <img loading='lazy'  src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/> 
           <div className="gradienti px-[75px] text-white">
             <div className=' border absolute border-red-500 bottom-[150px] w-[500px]'>
               <div>{movie.original_title}</div>
               <div className=' flex justify-center'>
                 <div>{movie.release_date}</div>
                 {genres && 
-                  <div>{genres.data.genres.filter(genre => movie.genre_ids.includes(genre.id)).map(el => el.name)}</div>
+                  <div>{genres.data?.genres.filter(genre => movie.genre_ids.includes(genre.id)).map(el => el.name)}</div>
                 }
               </div>
          

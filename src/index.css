@@ -10,3 +10,20 @@
 .bottomGradient{
   @apply absolute bottom-0 w-full bg-gradient-to-t from-black  from-5% to-25% 
 }
+
+
+.skeleton{
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+
+@keyframes skeleton-loading {
+  0%{
+    background-color: hsl(200, 20%, 70%);
+  }
+
+
+  100%{
+    background-color: hsl(200, 20%, 9%);
+  }
+}

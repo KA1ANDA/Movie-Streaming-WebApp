@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
 import { useGetMovieFilteredQuery } from '../../../Redux/API/api';
 import { useDispatch } from 'react-redux';
-import { setSortOption } from '../../../Redux/Slices/movieFilterSlice';
+import { setResetMovieResults, setSortOption } from '../../../Redux/Slices/movieFilterSlice';
 
 
 
@@ -23,6 +23,7 @@ const Sort = memo(() => {
 
   useEffect(()=>{
     dispatch(setSortOption(selectedOption))
+    dispatch(setResetMovieResults())
   },[selectedOption])
  
 

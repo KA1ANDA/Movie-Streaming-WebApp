@@ -1,28 +1,39 @@
 import React, { memo, useState } from 'react';
-import SelectedMovie from '../SelectedMovie/SelectedMovie';
-import { useGetActorsQuery, useGetFindByIdQuery, useGetMovieBackdropsQuery, useGetMovieMediaQuery, useGetMoviePostersQuery, useGetMovieRecomendationQuery, useGetMovieReviewsQuery, useGetSimilarMoviesQuery } from '../../Redux/API/Endpoints/selectedMovieApi';
+import { useGetFindByIdTvQuery, useGetSimilarTvQuery, useGetTvActorsQuery, useGetTvMediaQuery, useGetTvRecomendationQuery, useGetTvReviewsQuery } from '../../Redux/API/Endpoints/tvSeriesApi';
 import { useDispatch, useSelector } from 'react-redux';
 import Actors from '../SelectedMovie/Actors';
-import CommonSlide from '../Slides/CommonSlide';
+import { setWatchTrailerToggle } from '../../Redux/Slices/movieSlice';
+import SelectedMovie from '../SelectedMovie/SelectedMovie';
 import MovieReview from '../SelectedMovie/MovieReview';
 import MediaSwiper from '../SelectedMovie/MovieMedia/MediaSwiper';
-import { setWatchTrailerToggle } from '../../Redux/Slices/movieSlice';
-import { useGetFindByIdTvQuery } from '../../Redux/API/Endpoints/tvSeriesApi';
+import CommonSlide from '../Slides/CommonSlide';
 
 
 
 
 
-const MoviePage = memo(() => {
+const TvSeriesPage = memo(() => {
   const dispatch = useDispatch()
   const [toggle , setToggle] = useState('backdrops')
-  const {movieId , watchTrailerToggle , trailerKey} = useSelector(state => state.movieSlice)
-  const {data} = useGetFindByIdQuery(movieId)
-  const actors = useGetActorsQuery(movieId)
-  const recomendation = useGetMovieRecomendationQuery(movieId)
-  const similarMovies = useGetSimilarMoviesQuery(movieId)
-  const review = useGetMovieReviewsQuery(movieId)
-  const movieMedia = useGetMovieMediaQuery(movieId)
+  // const {movieId , watchTrailerToggle , trailerKey} = useSelector(state => state.movieSlice)
+  // const {data} = useGetFindByIdQuery(movieId)
+  // const actors = useGetActorsQuery(movieId)
+  // const recomendation = useGetMovieRecomendationQuery(movieId)
+  // const similarMovies = useGetSimilarMoviesQuery(movieId)
+  // const review = useGetMovieReviewsQuery(movieId)
+  // const movieMedia = useGetMovieMediaQuery(movieId)
+
+  const {tvId , watchTrailerToggle , trailerKey} = useSelector(state => state.movieSlice)
+  const {data} = useGetFindByIdTvQuery(tvId)
+  const actors = useGetTvActorsQuery(tvId)
+  const recomendation = useGetTvRecomendationQuery(tvId)
+  const similarTv = useGetSimilarTvQuery(tvId)
+  const review = useGetTvReviewsQuery(tvId)
+  const tvMedia = useGetTvMediaQuery(tvId)
+
+
+ 
+  
   
 
 
@@ -58,14 +69,14 @@ const MoviePage = memo(() => {
             <div onClick={toggleBackdrops}> Posters </div>
           </div>
           {toggle==='backdrops' ? 
-            <MediaSwiper data={movieMedia.data?.backdrops}/>
+            <MediaSwiper data={tvMedia.data?.backdrops}/>
             :
-            <MediaSwiper data={movieMedia.data?.posters}/>
+            <MediaSwiper data={tvMedia.data?.posters}/>
           }
         </div>
         <div>
           <div>Similar Movies for you</div>
-          <CommonSlide data={similarMovies?.data}/>
+          <CommonSlide data={similarTv?.data}/>
           <div>Recomendation</div>
           {recomendation.data?.results.length>0  ? 
             <CommonSlide data={recomendation?.data}/>
@@ -78,6 +89,8 @@ const MoviePage = memo(() => {
         {watchTrailerToggle && (
         <div onClick={closeVideo} className='fixed   bg-[rgb(0,0,0,0.8)]   top-0 bottom-0 right-0 left-0 w-full h-full px-[75px] py-[75px]  z-50 '>
           <div className=' m-auto   h-[100%] w-full '>
+            {/* <video className='w-full h-full' src={`https://www.youtube.com/watch?v=${trailerKey}`}></video>
+             */}
             <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${trailerKey}`} title="YouTube video player" frameborder="0" ></iframe>
              
           </div>
@@ -93,4 +106,4 @@ const MoviePage = memo(() => {
   );
 })
 
-export default MoviePage;
+export default TvSeriesPage;

@@ -5,6 +5,8 @@ const movieFilterSlice = createSlice({
   initialState:{
     sortOption:'',
     filterParams:{},
+    movieResults:[],
+    newMovieResults:[]
   },
   reducers:{
     setSortOption: (state , action) => {
@@ -13,9 +15,18 @@ const movieFilterSlice = createSlice({
     setFilterParams: (state , action) => {
       state.filterParams = action.payload
     } ,
-   
+    setMovieResults: (state , action) => {
+      state.movieResults = action.payload
+      if(!state.movieResults==[]){
+        state.newMovieResults = [...state.newMovieResults, ...state.movieResults];
+      }
+    } ,
+    setResetMovieResults:(state , action) =>{
+      state.movieResults= []
+      state.newMovieResults = []
+    }
   }
 })
 
-export const { setSortOption , setFilterParams} = movieFilterSlice.actions
+export const { setSortOption , setFilterParams , setMovieResults , setResetMovieResults} = movieFilterSlice.actions
 export default movieFilterSlice.reducer

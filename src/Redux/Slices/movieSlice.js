@@ -5,6 +5,12 @@ const movieSlice = createSlice({
   initialState:{
     genreId:null,
     movieId:null,
+    tvId:null,
+    listType:'movie',
+    watchTrailerToggle:false,
+    trailerKey:'',
+    searchToggle:false,
+   
     
   },
   reducers:{
@@ -13,10 +19,32 @@ const movieSlice = createSlice({
     } ,
     setMovieId: (state , action) => {
       state.movieId = action.payload
+      
     } ,
+    setTvId: (state , action) => {
+      state.tvId = action.payload
+  
+    } ,
+
+    setListType: (state , action) => {
+      state.listType = action.payload
+  
+    } ,
+    setWatchTrailerToggle: (state , action) => {
+      state.watchTrailerToggle = action.payload
+    } ,
+
+    setTrailerKey: (state , action) => {
+      state.trailerKey = action.payload
+    } ,
+
+    setSearchToggle: (state , action) => {
+      state.searchToggle = action.payload
+    } ,
+    
     
   }
 })
 
-export const {setGenreId , setMovieId } = movieSlice.actions
+export const {setGenreId , setMovieId , setWatchTrailerToggle , setTrailerKey , setTvId , setListType , setSearchToggle} = movieSlice.actions
 export default movieSlice.reducer

@@ -1,11 +1,17 @@
 import React, { memo } from 'react';
 import { useGetMovieGenresQuery } from '../../Redux/API/api';
+import { useSelector } from 'react-redux';
+import { useGetTvGenresQuery } from '../../Redux/API/Endpoints/tvSeriesApi';
 
 
 
 const VoteAndGenres = memo(({ movie }) => {
 
+  const {listType} = useSelector(state => state.movieSlice)
+
+
   const genres = useGetMovieGenresQuery()
+  const tvGenres = useGetTvGenresQuery()
   
   return (   
     <div className='flex  '>
@@ -15,8 +21,10 @@ const VoteAndGenres = memo(({ movie }) => {
         </svg>
         <div>{movie.vote_average}</div>
       </div>
-      {genres && 
-        <div>{genres.data.genres.filter(genre => movie.genre_ids.includes(genre.id)).map(el => el.name)}</div>
+      {!movie.first_air_date ?
+        <div>{genres.data?.genres.filter(genre => movie.genre_ids.includes(genre.id)).map(el => el.name)}</div>
+        :
+        <div>{tvGenres.data?.genres.filter(genre => movie.genre_ids.includes(genre.id)).map(el => el.name)}</div>
       }
     </div>
    

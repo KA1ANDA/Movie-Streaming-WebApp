@@ -1,7 +1,9 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useGetMovieFilteredQuery, useGetMovieGenresQuery } from '../../../Redux/API/api';
-import { useDispatch } from 'react-redux';
-import { setFilterParams } from '../../../Redux/Slices/movieFilterSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilterParams, setMovieResults, setResetMovieResults } from '../../../Redux/Slices/movieFilterSlice';
+import { useGetTvGenresQuery } from '../../../Redux/API/Endpoints/tvSeriesApi';
+import { setListType } from '../../../Redux/Slices/movieSlice';
 
 
 
@@ -11,6 +13,7 @@ import { setFilterParams } from '../../../Redux/Slices/movieFilterSlice';
 const Filters = memo(() => {
 
   const dispatch = useDispatch()
+  const {listType} = useSelector(state => state.movieSlice)
 
   const [genreId , setGenreId] = useState(null)
   const [fromDate , setFromDate] = useState('')
@@ -18,17 +21,19 @@ const Filters = memo(() => {
   const [userScore , setUserScore] = useState(10)
   const [userVotes , setUserVotes] = useState('')
   const [movieTime , setMovieTime] = useState(360)
+  // const [listType , setListType] = useState('movie')
 
-
+  
 
 
 
   const {data} = useGetMovieGenresQuery()
-
+  const tvGenres = useGetTvGenresQuery()
  
 
   const getGenreId = (id) =>{
     setGenreId(id)
+
   }
 
   
@@ -39,10 +44,12 @@ const Filters = memo(() => {
     userScore,
     userVotes,
     movieTime,
+    listType
   }
 
   useEffect(() => {
     dispatch(setFilterParams(params))
+    dispatch(setResetMovieResults())
   },[dispatch , params])
 
 
@@ -78,6 +85,17 @@ const Filters = memo(() => {
   }
 
 
+  const setType = (event) => {
+    const selectedValue = event.target.value;
+    dispatch(setListType(selectedValue))
+    setGenreId(null)
+    setMovieTime(360)
+    setUserScore(10)
+    setFromDate('')
+    setToDate(new Date().toISOString().split('T')[0])
+  }
+
+  
   
 
   
@@ -86,11 +104,11 @@ const Filters = memo(() => {
         <div className='flex flex-col '>
           <div>
             <label htmlFor='Movies'>Movies</label>
-            <input type='radio' value='Movies' name='watch' id='Movies'></input>
+            <input onChange={setType} type='radio' value='movie' name='watch' id='Movies'></input>
           </div>
           <div>
             <label htmlFor='TV'>TV Series</label>
-            <input type='radio' value='TV' name='watch' id='TV'></input>
+            <input onChange={setType} type='radio' value='tv' name='watch' id='TV'></input>
           </div>
           
           
@@ -106,7 +124,15 @@ const Filters = memo(() => {
 
         <div>
           <div>Genres</div>
-          {data && data.genres.map( genre => <div key={genre.id} onClick={() => getGenreId(genre.id)}>{genre.name}</div>)}
+          {listType ==='movie' ?
+
+            data?.genres.map( genre => <div key={genre.id} onClick={() => getGenreId(genre.id)}>{genre.name}</div>)
+
+            :
+
+            tvGenres.data.genres.map( genre => <div key={genre.id} onClick={() => getGenreId(genre.id)}>{genre.name}</div>)
+          
+          }
         </div>
 
         <div>

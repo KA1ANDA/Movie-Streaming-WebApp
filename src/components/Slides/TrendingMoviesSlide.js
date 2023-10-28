@@ -19,8 +19,8 @@ const TrendingMoviesSlide = memo(({posterPath , title  , movie , mediaType}) => 
     <div className='flex items-center'>
       1
     </div>
-    <div className='bg-green-300 flex items-end justify-center  '>
-      <img src={`https://image.tmdb.org/t/p/original/${posterPath}`}></img>
+    <div className='bg-green-300 flex items-end justify-center h-[190px]  '>
+      <img loading='lazy' className='skeleton' src={`https://image.tmdb.org/t/p/original/${posterPath}`}></img>
         <div className='flex flex-col bg-blue-500'>
           <div>{title}</div>
           <VoteAndGenres  movie={movie} />

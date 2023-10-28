@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { memo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { setSearchToggle } from '../../Redux/Slices/movieSlice';
 
 
 
-function NavList() {
+const NavList = memo(({toggleSearch}) => {
+  const dispatch = useDispatch()
+  
+//   const {searchToggle} = useSelector(state => state.movieSlice)
+
+//   const toggleSearch = () => {
+//     dispatch(setSearchToggle(true))
+//   }
 
   return (
     <div className="flex w-full justify-between absolute top-[40px] px-[75px] text-white z-20">
@@ -31,12 +40,12 @@ function NavList() {
      <ul className='flex gap-[32px]'>
       <NavLink to={'/Home'}><li>Home</li></NavLink>
       <NavLink to={'/Discover'}><li>Discover</li></NavLink>
-      <li>Movie Release</li>
+      <NavLink to={'/People'}><li>People</li></NavLink>
       <li>Forum</li>
       <li>About</li>
      </ul>
      <div className='flex gap-[23px]'>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <svg className=' cursor-pointer' onClick={()=>toggleSearch('true')} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
   <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>  
 
@@ -46,6 +55,6 @@ function NavList() {
      </div>
     </div>
   );
-}
+})
 
 export default NavList;

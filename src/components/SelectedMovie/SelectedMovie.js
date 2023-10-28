@@ -3,16 +3,44 @@ import WatchButton from '../Buttons/WatchButton';
 import WatchlistButton from '../Buttons/WatchlistButton';
 
 import { useGetMovieGenresQuery } from '../../Redux/API/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { setTrailerKey, setWatchTrailerToggle } from '../../Redux/Slices/movieSlice';
+import { useGetMovieTrailerQuery } from '../../Redux/API/Endpoints/selectedMovieApi';
+import { useGetTvTrailerQuery } from '../../Redux/API/Endpoints/tvSeriesApi';
 
 
 
 
 const SelectedMovie = memo(({movie}) => {
 
-  const {data} = useGetMovieGenresQuery()
+  const dispatch = useDispatch()
+
+  const {movieId , tvId} = useSelector(state => state.movieSlice)
+
+
+  const trailer = useGetMovieTrailerQuery(movieId)
+  const tvtrailer = useGetTvTrailerQuery(tvId)
+
+
   
 
-
+  const {data} = useGetMovieGenresQuery()
+  
+ 
+  const toggle = () =>{
+    dispatch(setWatchTrailerToggle(true))
+    if(movie.first_air_date){
+      const video = tvtrailer.data?.results.filter(video => video.type==="Trailer" )
+      dispatch(setTrailerKey(video[0].key))
+    }else{
+      const video = trailer.data?.results.filter(video => video.type==="Trailer" )
+      dispatch(setTrailerKey(video[0].key))
+    }
+   
+  
+  }
+  
+  
   return (
       <div className=" h-[648px] relative bg-green-500  overflow-hidden">
         <div className='w-[300px] absolute'>
@@ -24,7 +52,7 @@ const SelectedMovie = memo(({movie}) => {
             <div>{movie.genres.map(genre => genre.name)}</div>
             <div>{movie.overview}</div>
             <div>
-              <WatchButton />
+              <div onClick={toggle}>Watch Trailer</div>
               <WatchlistButton />
             </div>   
           </div>

@@ -40,6 +40,12 @@ const selectedMovieApi = api.injectEndpoints({
       providesTags: () => ["movieMedia"],
       
     }),
+
+    getMovieTrailer : builder.query({
+      query: (movie_id) => `movie/${movie_id}/videos`,
+      providesTags: () => ["movieTrailer"],
+      
+    }),
    
     
    
@@ -53,4 +59,5 @@ export const {
   useGetSimilarMoviesQuery,
   useGetMovieRecomendationQuery,
   useGetMovieReviewsQuery,
-  useGetMovieMediaQuery} = selectedMovieApi
+  useGetMovieMediaQuery,
+  useGetMovieTrailerQuery} = selectedMovieApi
